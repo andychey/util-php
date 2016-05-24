@@ -6,6 +6,20 @@ namespace Andychey\Util;
 class File
 {
     /**
+     * 创建文件的目录结构
+     *
+     * @param $filename
+     * @param int $mode
+     */
+    public static function mkdirForFile($filename, $mode = 0755)
+    {
+        $dir = dirname($filename);
+        if (! is_dir($dir)) {
+            mkdir($dir, $mode, TRUE);
+        }
+    }
+    
+    /**
      * 文件下载
      *
      * @param $file
