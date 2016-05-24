@@ -3,19 +3,19 @@
 namespace Andychey\Util;
 
 
-class Client
+class In
 {
     /**
      * 获取客户端ip地址
      * 
      * @return string
      */
-    public static function getIp()
+    public static function getRealIp()
     {
-        $ip = $unknown = 'unknown';
-        if (! empty($_SERVER['HTTP_X_FORWARDED_FOR']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], $unknown)) {
+        $ip = '127.0.0.1';
+        if (! empty($_SERVER['HTTP_X_FORWARDED_FOR']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], 'unknown')) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } elseif (! empty($_SERVER['REMOTE_ADDR']) && strcasecmp($_SERVER['REMOTE_ADDR'], $unknown)) {
+        } elseif (! empty($_SERVER['REMOTE_ADDR']) && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         if (false !== strpos($ip, ',')) {
@@ -32,7 +32,7 @@ class Client
     public static function isAjax()
     {
         return isset($_SERVER["HTTP_X_REQUESTED_WITH"]) &&
-            'xmlhttprequest' === strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]);
+            ! strcasecmp($_SERVER["HTTP_X_REQUESTED_WITH"], 'xmlhttprequest');
     }
 
     /**
@@ -52,8 +52,9 @@ class Client
      */
     public static function isWeChat()
     {
-        return false !== stripos(self::getUserAgent(), 'micromessenger') ||
-            false !== stripos(self::getUserAgent(), 'wechatdevtools');
+        $ua = self::getUserAgent();
+        return false !== stripos($ua, 'micromessenger') ||
+            false !== stripos($ua, 'wechatdevtools');
     }
     
     /**

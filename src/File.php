@@ -20,13 +20,11 @@ class File
         if (Client::isIE()) {
             $encoded_filename = rawurlencode($filename);
             header('Content-Disposition: attachment; filename="' . $encoded_filename . '"');
-        } else if (Client::isFirefox()) {
-            header("Content-Disposition: attachment; filename*=\"utf8''" . $filename . '"');
         } else {
             header('Content-Disposition: attachment; filename="' . $filename . '"');
         }
 
-        header("Content-Length: ". filesize($file));
+        header("Content-Length: " . filesize($file));
         
         readfile($file);
     }
