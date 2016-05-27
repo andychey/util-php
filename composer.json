@@ -1,7 +1,6 @@
 {
   "name": "andychey/util",
   "description": "php utils",
-  "version": "1.0.0",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
